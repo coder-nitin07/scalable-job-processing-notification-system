@@ -1,0 +1,13 @@
+node_modules/
+**/node_modules/
+.env
+.env.*
+dist/
+coverage/
+.DS_Store
+
+
+# personal files
+project_documentation.md
+project_steps.md
+task_breakdown.md
