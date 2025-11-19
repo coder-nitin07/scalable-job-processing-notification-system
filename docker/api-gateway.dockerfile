@@ -2,15 +2,15 @@ FROM node:18-alpine
 
 WORKDIR /app
 
+# install dependencies
 COPY api-gateway/package*.json ./
 RUN npm install
 
-# Copy shared folder
+# copy shared
 COPY shared ./shared
 
-# Copy api-gateway source code
-COPY api-gateway ./ 
+# copy service code
+COPY api-gateway ./
 
 EXPOSE 8000
-
 CMD ["npm", "run", "start"]

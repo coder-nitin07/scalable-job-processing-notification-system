@@ -2,11 +2,10 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY worker-service/package*.json ./
 RUN npm install
 
-COPY ../shared ./shared
-COPY ./ ./
-
+COPY shared ./shared
+COPY worker-service ./
 
 CMD ["npm", "run", "start"]
