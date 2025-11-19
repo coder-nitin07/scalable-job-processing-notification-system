@@ -1,13 +1,13 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/job-service
 
 COPY job-service/package*.json ./
 RUN npm install
 
-COPY shared ./shared
-COPY job-service/src ./src
-COPY job-service/prisma ./prisma
+COPY shared /app/shared
+COPY job-service /app/job-service
 
 EXPOSE 8001
-CMD ["node", "src/server.js"]
+
+CMD ["npm", "run", "start"]

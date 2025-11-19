@@ -1,11 +1,13 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/worker-service
 
 COPY worker-service/package*.json ./
 RUN npm install
 
-COPY shared ./shared
-COPY worker-service/src ./src
+COPY shared /app/shared
+COPY worker-service /app/worker-service
 
-CMD ["node", "src/server.js"]
+EXPOSE 8002
+
+CMD ["npm", "run", "start"]

@@ -1,12 +1,13 @@
 FROM node:18-alpine
 
-WORKDIR /app
+WORKDIR /app/notification-service
 
 COPY notification-service/package*.json ./
 RUN npm install
 
-COPY shared ./shared
-COPY notification-service/src ./src
+COPY shared /app/shared
+COPY notification-service /app/notification-service
 
-EXPOSE 8002
-CMD ["node", "src/server.js"]
+EXPOSE 8003
+
+CMD ["npm", "run", "start"]

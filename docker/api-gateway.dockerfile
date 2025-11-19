@@ -1,16 +1,22 @@
 FROM node:18-alpine
 
-WORKDIR /app
+# 1. Set working directory to service root
+WORKDIR /app/api-gateway
 
-# Install dependencies
+# 2. Copy package.json & package-lock.json first
 COPY api-gateway/package*.json ./
+
+# 3. Install dependencies
 RUN npm install
 
-# Copy shared dependencies
-COPY shared ./shared
+# 4. Copy shared folder (for aliases)
+COPY shared /app/shared
 
-# Copy actual service code inside /app/src
-COPY api-gateway/src ./src
+# 5. Copy service code
+COPY api-gateway /app/api-gateway
 
+# 6. Expose port
 EXPOSE 8000
-CMD ["node", "src/server.js"]
+
+# 7. Start service
+CMD ["npm", "run", "start"]
