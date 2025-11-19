@@ -1,18 +1,16 @@
-
-
 services: 
   postgres:
-      image: postgres:15
-      container_name: job-system-postgres
-      restart: always
-      environment:
-        POSTGRES_USER: nitin
-        POSTGRES_PASSWORD: scalableJob123
-        POSTGRES_DB: job_system_db
-      ports:
-        - "5432:5432"
-      volumes:
-        - pgdata:/var/lib/postgresql/data
+    image: postgres:15
+    container_name: job-system-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: nitin
+      POSTGRES_PASSWORD: scalableJob123
+      POSTGRES_DB: job_system_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
   
   redis:
     image: redis:7
@@ -23,8 +21,8 @@ services:
   
   api-gateway:
     build:
-      context: ./api-gateway
-      dockerfile: ../docker/api-gateway.dockerfile
+      context: .
+      dockerfile: docker/api-gateway.Dockerfile
     container_name: job-system-api-gateway
     restart: always
     ports:
@@ -37,8 +35,8 @@ services:
 
   job-service:
     build:
-      context: ./job-service
-      dockerfile: ../docker/job-service.dockerfile
+      context: .
+      dockerfile: docker/job-service.Dockerfile
     container_name: job-system-job-service
     restart: always
     ports:
@@ -51,8 +49,8 @@ services:
 
   notification-service:
     build:
-      context: ./notification-service
-      dockerfile: ../docker/notification-service.dockerfile
+      context: .
+      dockerfile: docker/notification-service.Dockerfile
     container_name: job-system-notification-service
     restart: always
     ports:
@@ -63,11 +61,10 @@ services:
       - redis
       - postgres
 
-
   worker-service:
     build:
-      context: ./worker-service
-      dockerfile: ../docker/worker-service.dockerfile
+      context: .
+      dockerfile: docker/worker-service.Dockerfile
     container_name: job-system-worker-service
     restart: always
     env_file:
@@ -75,7 +72,6 @@ services:
     depends_on:
       - redis
       - postgres
-
 
 volumes:
   pgdata:
