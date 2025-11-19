@@ -9,15 +9,13 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'job-service' });
+  res.json({ status: 'ok', service: 'worker-service' });
 });
 
-// Error handler
-app.use((err, req, res, next) => {
+app.use((err, req, res, nexr) => {
   logger.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
+  res.status(500).json({ error: 'Worker service error' });
 });
 
 module.exports = app;
