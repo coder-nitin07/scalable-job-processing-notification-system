@@ -24,7 +24,7 @@ services:
   api-gateway:
     build:
       context: ./api-gateway
-      dockerfile: ./docker/api-gateway.dockerfile
+      dockerfile: ../docker/api-gateway.dockerfile
     container_name: job-system-api-gateway
     restart: always
     ports:
@@ -38,7 +38,7 @@ services:
   job-service:
     build:
       context: ./job-service
-      dockerfile: ./docker/job-service.dockerfile
+      dockerfile: ../docker/job-service.dockerfile
     container_name: job-system-job-service
     restart: always
     ports:
@@ -52,7 +52,7 @@ services:
   notification-service:
     build:
       context: ./notification-service
-      dockerfile: ./docker/notification-service.dockerfile
+      dockerfile: ../docker/notification-service.dockerfile
     container_name: job-system-notification-service
     restart: always
     ports:
@@ -67,7 +67,7 @@ services:
   worker-service:
     build:
       context: ./worker-service
-      dockerfile: ./docker/worker-service.dockerfile
+      dockerfile: ../docker/worker-service.dockerfile
     container_name: job-system-worker-service
     restart: always
     env_file:
