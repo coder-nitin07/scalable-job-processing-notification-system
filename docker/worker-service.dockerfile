@@ -6,6 +6,6 @@ COPY worker-service/package*.json ./
 RUN npm install
 
 COPY shared ./shared
-COPY worker-service ./
+COPY worker-service/src ./src
 
-CMD ["npm", "run", "start"]
+CMD ["node", "src/server.js"]
