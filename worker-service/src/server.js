@@ -1,5 +1,7 @@
+require('module-alias/register');
+
 const app = require('./app');
-const logger = require('../../shared/logger/logger');
+const logger = require('@shared/logger/logger');
 
 const PORT = process.env.PORT || 8003;
 

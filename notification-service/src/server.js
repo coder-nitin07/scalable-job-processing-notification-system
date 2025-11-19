@@ -1,21 +1,10 @@
-const express = require('express');
-const app = express();
+require('module-alias/register');
 
-const cors = require('cors');
-const morgan = require('morgan');
-const logger = require('../../shared/logger/logger');
+const app = require('./app');
+const logger = require('@shared/logger/logger');
 
-app.use(cors());
-app.use(express.json());
-app.use(morgan('dev'));
+const PORT = process.env.PORT || 8002;
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'notification-service' });
+app.listen(PORT, () => {
+  logger.info(`Notification Service running on PORT ${PORT}`);
 });
-
-app.use((err, req, res, next) => {
-  logger.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
-});
-
-module.exports = app;

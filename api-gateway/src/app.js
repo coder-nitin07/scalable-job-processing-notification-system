@@ -3,7 +3,6 @@ const app = express();
 
 const morgan = require('morgan');
 const cors = require('cors');
-const logger = require('../../shared/logger/logger');
 require('dotenv').config();
 
 app.use(cors());
