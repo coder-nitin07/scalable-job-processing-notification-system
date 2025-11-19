@@ -5,7 +5,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY ../shared ./shared
+COPY ./ ./
+
 
 EXPOSE 8002
 
