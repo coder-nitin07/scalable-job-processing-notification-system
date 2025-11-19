@@ -1,11 +1,8 @@
 {
-  "name": "shared",
+  "name": "worker-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,6 +10,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bullmq": "^5.63.2",
+    "dotenv": "^17.2.3",
+    "ioredis": "^5.8.2",
+    "morgan": "^1.10.1",
     "winston": "^3.18.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.6.2"
   }
 }

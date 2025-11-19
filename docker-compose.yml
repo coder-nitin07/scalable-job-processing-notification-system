@@ -23,42 +23,55 @@ services:
   
   api-gateway:
     build:
-      context: ../api-gateway
-      dockerfile: ../docker/api-gateway.dockerfile
+      context: ./api-gateway
+      dockerfile: ./docker/api-gateway.dockerfile
     container_name: job-system-api-gateway
     restart: always
     ports:
       - "8000:8000"
     env_file:
-      - ../api-gateway/.env
+      - ./api-gateway/.env
     depends_on:
       - postgres
       - redis
 
   job-service:
     build:
-      context: ../job-service
-      dockerfile: ../docker/job-service.dockerfile
+      context: ./job-service
+      dockerfile: ./docker/job-service.dockerfile
     container_name: job-system-job-service
     restart: always
     ports:
       - "8001:8001"
     env_file:
-      - ../job-service/.env
+      - ./job-service/.env
     depends_on:
       - postgres
       - redis
 
   notification-service:
     build:
-      context: ../notification-service
-      dockerfile: ../docker/notification-service.dockerfile
+      context: ./notification-service
+      dockerfile: ./docker/notification-service.dockerfile
     container_name: job-system-notification-service
     restart: always
     ports:
       - "8002:8002"
     env_file:
-      - ../notification-service/.env
+      - ./notification-service/.env
+    depends_on:
+      - redis
+      - postgres
+
+
+  worker-service:
+    build:
+      context: ./worker-service
+      dockerfile: ./docker/worker-service.dockerfile
+    container_name: job-system-worker-service
+    restart: always
+    env_file:
+      - ./worker-service/.env
     depends_on:
       - redis
       - postgres
