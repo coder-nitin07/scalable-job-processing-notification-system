@@ -2,11 +2,17 @@ FROM node:18-alpine
 
 WORKDIR /app/job-service
 
+# Copy package.json and install dependencies
 COPY job-service/package*.json ./
 RUN npm install
 
-COPY shared /app/shared
-COPY job-service /app/job-service
+# Copy shared folder and install its dependencies
+COPY shared/package*.json ../shared/
+RUN cd ../shared && npm install
+
+# Copy code
+COPY shared ../shared
+COPY job-service ./ 
 
 EXPOSE 8001
 
