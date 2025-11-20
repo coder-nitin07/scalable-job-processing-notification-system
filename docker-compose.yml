@@ -32,9 +32,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./api-gateway:/app
-      - ./shared:/app/shared
 
   job-service:
     build:
@@ -49,9 +46,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./job-service:/app
-      - ./shared:/app/shared
 
   notification-service:
     build:
@@ -66,9 +60,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./notification-service:/app
-      - ./shared:/app/shared
 
   worker-service:
     build:
@@ -81,9 +72,6 @@ services:
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./worker-service:/app
-      - ./shared:/app/shared
 
 volumes:
   pgdata:
