@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 // JS file in ESM mode
 import { PrismaClient } from "./src/generated/prisma";
+=======
+import { PrismaClient } from "./src/generated/prisma/client.ts";
+>>>>>>> 93d76f769b3142039d2c368ccfed59869d65afd3
 
 const prisma = new PrismaClient();
 
