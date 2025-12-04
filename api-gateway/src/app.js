@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const { logger, morganStream } = require('./config/logger');
 
 const morgan = require('morgan');
 const cors = require('cors');
@@ -7,7 +8,11 @@ require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
-app.use(morgan('dev'));
+
+// morgan + winston
+app.use(
+  morgan(':method :url :status :response-time ms', { stream: morganStream })
+);
 
 // test route
 app.get('/health', (req, res)=>{

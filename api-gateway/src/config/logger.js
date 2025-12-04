@@ -1,4 +1,4 @@
-const { createLogger, format, transports } = require('winston');
+const { createLogger, format, transports, log } = require('winston');
 
 const logger = createLogger({
     level: 'info',
@@ -13,4 +13,10 @@ const logger = createLogger({
     ]
 });
 
-module.exports = logger;
+const morganStream = {
+    write: (message)=>{
+        logger.info(message.trim());
+    }
+}
+
+module.exports = { logger, morganStream };
