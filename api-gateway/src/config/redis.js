@@ -9,7 +9,7 @@ redis.on('connect', ()=>{
     console.log(`Redis connected API Gateway`);
 });
 
-redis.on('error', ()=>{
+redis.on('error', (err)=>{
     console.error('Redis error : ', err);
 });
 
