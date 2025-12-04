@@ -5,6 +5,7 @@ const rateLimiter = require('./middlewares/rateLimiter');
 
 const morgan = require('morgan');
 const cors = require('cors');
+const authMiddleware = require('./middlewares/auth');
 require('dotenv').config();
 
 app.use(cors());
@@ -28,5 +29,9 @@ app.use((err, req, res, next)=>{
     logger.error(err.stack || err.message || err);
     res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
 });
+
+// routes
+app.use('/jobs', authMiddleware, jobRoutes);
+app.use('/notifications', authMiddleware, notificationRoutes);
 
 module.exports = app;
