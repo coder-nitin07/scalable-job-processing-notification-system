@@ -1,10 +1,4 @@
-require('module-alias/register');
+require('dotenv').config();
+require('./queues/jobQueue');
 
-const app = require('./app');
-const logger = require('@shared/logger/logger');
-
-const PORT = process.env.PORT || 8003;
-
-app.listen(PORT, () => {
-  logger.info(`Worker Service running on PORT ${PORT}`);
-});
+console.log('Worker Service is running...');
