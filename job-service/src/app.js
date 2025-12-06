@@ -1,27 +1,23 @@
-const express = require('express');
-const app = express();
-
-const cors = require('cors');
+const express = require('expres');
 const morgan = require('morgan');
-const logger = require('../../shared/logger/logger');
-const jobRouter = require('./routes/job.routes');
+const cors = require('cors');
+const routes = require('./routes');
+const notFoundMiddleware = require('./middlewares/notFound.middleware');
+const errorMiddleware = require('./middlewares/error.middleware');
 
-app.use(cors());
-app.use(express.json());
-app.use(morgan('dev'));
+function createApp(){
+  const app = express();
+  app.use(cors);
+  app.use(express.json({ limit: 'Job' }));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(morgan('dev'));
 
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'job-service' });
-});
+  app.use('/api', routes);
+  app.use(notFoundMiddleware);
+  app.use(errorMiddleware);
 
-// Error handler
-app.use((err, req, res, next) => {
-  logger.error(err);
-  res.status(err.status || 500).json({ error: err.message || 'Internal Server Error' });
-});
+  app.get('/', (req, res) => res.json({ ok: true, service: 'job-service' }));
+  return app;
+}
 
-// routes
-app.use('/jobs', jobRouter);
-
-module.exports = app;
+module.exports = createApp;

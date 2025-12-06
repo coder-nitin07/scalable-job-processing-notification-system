@@ -1,10 +1,18 @@
-require('module-alias/register');
+require('dotenv').config();
+const createApp = require('./app');
+const { initQueue } = require('./queues');
+const logger = require('./utils/logger');
 
-const app = require('./app');
-const logger = require('@shared/logger/logger');
+async function start() {
+  // initialize queues (connect to redis)
+  await initQueue();
 
-const PORT = process.env.PORT || 8001;
+  const app = createApp();
+  app.listen(PORT, () => logger.info(`Job Service listening on ${ PORT }`));
+}
 
-app.listen(PORT, () => {
-  logger.info(`Job Service running on PORT ${PORT}`);
+
+start().catch(err => {
+  console.error('Failed to start job-service', err);
+  process.exit(1);
 });
