@@ -1,10 +1,10 @@
-const { PrimaClient } = require('@prisma/client');
+const { PrismaClient } = require('@prisma/client');
 const { v4:uuidv4 } = require('uuid');
 const { enqueueJob } = require('../queues');
 const ApiError = require('../utils/apiResponse');
 const logger = require('../utils/logger');
 
-const primsa = new PrimaClient();
+const primsa = new PrismaClient();
 
 async function createJob(payload){
     const { id } = uuidv4();

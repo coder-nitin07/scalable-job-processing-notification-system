@@ -3,6 +3,8 @@ const createApp = require('./app');
 const { initQueue } = require('./queues');
 const logger = require('./utils/logger');
 
+const PORT = process.env.PORT || 4001;
+
 async function start() {
   // initialize queues (connect to redis)
   await initQueue();

@@ -16,4 +16,4 @@ function validate(schema){
     };
 }
 
-export.validateCreateJob = validate(createJobSchema);
+exports.validateCreateJob = validate(createJobSchema);
