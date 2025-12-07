@@ -2,7 +2,7 @@ const { Worker } = require('bullmq');
 const redis = require('../config/redis');
 const processJob = require('../processors/job.processor');
 
-const jobWorker = new Worker('jobQueue', processJob, {
+const jobWorker = new Worker('job-queue', processJob, {
     connection: redis,
     concurrency: 5,       // allow 5 jobs at once
     removeOnComplete: true,

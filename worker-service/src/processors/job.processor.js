@@ -2,13 +2,14 @@ const prisma = require('../config/prisma');
 const logger = require('../utils/logger');
 
 module.exports = async (job) => {
-    const { jobId, payload } = job.data;
+    const { id, payload, type } = job.data;
+    const jobId = id; 
 
     try {
         // Update DB → processing
         await prisma.job.update({
             where: { id: jobId },
-            data: { status: 'processing' }
+            data: { status: 'PROCESSING' }
         });
 
         logger.info(`Processing job ${jobId}`);
@@ -24,7 +25,7 @@ module.exports = async (job) => {
         // Update DB → completed
         await prisma.job.update({
             where: { id: jobId },
-            data: { status: 'completed', result }
+            data: { status: 'COMPLETED', result }
         });
 
         logger.info(`Job ${jobId} completed`);
@@ -36,7 +37,7 @@ module.exports = async (job) => {
         // Update DB → failed
         await prisma.job.update({
             where: { id: jobId },
-            data: { status: 'failed', errorMessage: err.message }
+            data: { status: 'FAILED', errorMessage: err.message }
         });
 
         throw err;
