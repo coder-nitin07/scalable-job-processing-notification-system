@@ -5,8 +5,8 @@ const processJob = require('../processors/job.processor');
 const jobWorker = new Worker('job-queue', processJob, {
     connection: redis,
     concurrency: 5,       // allow 5 jobs at once
-    removeOnComplete: true,
-    removeOnFail: false
+    removeOnComplete: { age: 3600 }, // optional: remove after 1 hour
+    removeOnFail: { age: 3600 }      
 });
 
 jobWorker.on('completed', (job, result) => {
