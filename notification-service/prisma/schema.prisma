@@ -1,0 +1,46 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Notification {
+  id         String    @id @default(uuid())
+  userId     String
+  jobId      String?   // optional if Notification can be independent of a job
+  eventType  EventType
+  title      String
+  body       String
+  channel    Channel   @default(EMAIL) // default channel
+  status     NotificationStatus @default(PENDING)
+  attempts   Int       @default(0)
+  metadata   Json?
+  sentAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  // Prevent duplicate notifications for same jobId + eventType + userId
+  @@unique([jobId, eventType, userId], name: "uniq_job_event_user")
+}
+
+enum EventType {
+  JOB_COMPLETED
+  JOB_FAILED
+  CUSTOM
+}
+
+enum Channel {
+  EMAIL
+  PUSH
+  ALL
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
